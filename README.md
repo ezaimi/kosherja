@@ -9,7 +9,7 @@ student housing.
 - Service
 - Finance
 ## Features
-File with the name: Project description 
+File with the name: Project Description (1).docx
 ## Screenshots of the program
 ...
 ## Credits
