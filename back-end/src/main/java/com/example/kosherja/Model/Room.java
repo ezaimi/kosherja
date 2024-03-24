@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @NoArgsConstructor
-@Document(collection = "rooms")
+@Document(collection = "room")
 public class Room {
     @Id
     private ObjectId id;

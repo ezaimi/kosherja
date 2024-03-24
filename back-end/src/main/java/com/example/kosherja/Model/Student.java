@@ -10,42 +10,46 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-public class Student extends User{
+@Data
+@Document(collection = "student")
+public class Student{
+
+
+    @Id
+    private String id;
+    private String username;
+    private String password;
+    private String name;
+    private String surname;
+    private String email;
+    private String phone;
 
 
     private String roomId;
     private String contractId;
+
+    private String managerId;
+
     @JsonCreator
-    public Student(@JsonProperty("firstName") String firstName,
-                   @JsonProperty("lastName") String lastName,
-                   @JsonProperty("contactDetailsId") String contactDetailsId,
+    public Student(@JsonProperty("username") String username,
+                   @JsonProperty("password") String password,
+                   @JsonProperty("name") String name,
+                   @JsonProperty("surname") String surname,
+                   @JsonProperty("email") String email,
+                   @JsonProperty("phone") String phone,
                    @JsonProperty("roomId")String roomId,
-                   @JsonProperty("contractId")String contractId) {
-        super(firstName, lastName, contactDetailsId);
+                   @JsonProperty("contractId")String contractId,
+                   @JsonProperty("managerId")String managerId)
+    {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.phone = phone;
         this.roomId=roomId;
         this.contractId=contractId;
+        this.managerId = managerId;
     }
-
-
-    public String getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
-    }
-
-    public String getContractId() {
-        return contractId;
-    }
-
-    public void setContractId(String contractId) {
-        this.contractId = contractId;
-    }
-//    @JsonCreator
-//    public Student(@JsonProperty("name")String name){this.name=name;}
-
-//    JsonCreator=>specifies deseralization
-//    @JsonProperty maps the json property name with object parameterseok
 
 }

@@ -1,8 +1,8 @@
 package com.example.kosherja.Controller;
 
 import com.example.kosherja.Model.Ticket;
-import com.example.kosherja.Repo.StdRepo;
-import com.example.kosherja.Repo.TickRepo;
+import com.example.kosherja.Repo.StudentRepo;
+import com.example.kosherja.Repo.TicketRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +12,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/tickets")
-public class TickCont {
+public class TicketController {
 
     @Autowired
-    private TickRepo tickRepo;
+    private TicketRepo tickRepo;
     @Autowired
-    private StdRepo stdRepo;
+    private StudentRepo stdRepo;
 
     @GetMapping
     public List<Ticket> fetchAllTickets(){
