@@ -3,9 +3,10 @@ package com.example.kosherja.Controller;
 
 import com.example.kosherja.Model.Student;
 import com.example.kosherja.Model.Ticket;
-import com.example.kosherja.Repo.StdRepo;
-import com.example.kosherja.Repo.TickRepo;
+import com.example.kosherja.Repo.StudentRepo;
+import com.example.kosherja.Repo.TicketRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,24 +14,33 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/students")
-public class StdCont {
+public class StudentController {
 
 
 
     @Autowired
-    private StdRepo stdRepo;
+    private StudentRepo stdRepo;
     @Autowired
-    private TickRepo tickRepo;
+    private TicketRepo tickRepo;
 
     @GetMapping
     public List<Student> fetchAllStudents(){return stdRepo.findAll();}
 
-    @PostMapping
-    public ResponseEntity createStudent(@RequestBody Student student){
-        return ResponseEntity.status(201).body(
-                stdRepo.save(student)
-        );
+//    @PostMapping
+//    public ResponseEntity createStudent(@RequestBody Student student){
+//        return ResponseEntity.status(201).body(
+//                stdRepo.save(student)
+//        );
+//
+//    }
 
+    @PostMapping("/create/{id}")
+    public ResponseEntity<Student> createStudent(@PathVariable String id, @RequestBody Student student) {
+        student.setManagerId(id);
+
+        Student createdStudent = stdRepo.save(student);
+
+        return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

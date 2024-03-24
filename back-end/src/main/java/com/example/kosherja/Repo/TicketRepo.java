@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TickRepo extends MongoRepository<Ticket,String> {
+public interface TicketRepo extends MongoRepository<Ticket,String> {
     List<Ticket> findAllByStudentId(String id);
 }
