@@ -1,5 +1,4 @@
-package com.example.kosherja.Model;
-
+package com.example.kosherja.Model.Facilities;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,10 +9,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @NoArgsConstructor
-@Document(collection = "contract")
-public class Contract {
+@Document(collection = "room")
+public class Room {
     @Id
     private ObjectId id;
-    @Setter private String terms;
+    @Setter private String details;
+    @Setter private boolean availability;
+    @Setter private double price;
 
 }

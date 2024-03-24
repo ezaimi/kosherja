@@ -1,4 +1,4 @@
-package com.example.kosherja.Model;
+package com.example.kosherja.Model.UserDetails;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,13 +8,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
+@Document(collection = "contacts")
 @NoArgsConstructor
-@Document(collection = "rooms")
-public class Room {
+public class Contact {
     @Id
     private ObjectId id;
-    @Setter private String details;
-    @Setter private boolean availability;
-    @Setter private double price;
-
+    @Setter private String number;
+    @Setter private String email;
 }
