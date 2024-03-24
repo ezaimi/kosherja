@@ -1,7 +1,5 @@
 # Application for a private company that offers dormitores for students 
-This app simplifies student housing management for a private company. The app enhances
-communication and streamlines processes for administrators, coordinator, and students involved in
-student housing.
+The Student Accommodation Management System represents a paradigm shift in the way student housing facilities are managed, offering a cohesive platform that fosters collaboration, transparency, and efficiency across all stakeholders. By streamlining administrative processes, enhancing communication channels, and prioritizing student satisfaction, the system aims to elevate the overall living experience for students while empowering administrators, coordinators, service personnel, and finance management personnel to fulfill their respective roles with unparalleled efficacy.
 ### User Levels:
 - Admin
 - Coordinator
