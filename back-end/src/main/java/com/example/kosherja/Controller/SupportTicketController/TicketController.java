@@ -1,8 +1,8 @@
 package com.example.kosherja.Controller.SupportTicketController;
 
 import com.example.kosherja.Model.SupportTicket.Ticket;
-import com.example.kosherja.Repo.UserRepo.StudentRepo;
 import com.example.kosherja.Repo.SupportTicketRepo.TicketRepo;
+import com.example.kosherja.Repo.UserRepo.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
