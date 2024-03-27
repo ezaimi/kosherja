@@ -19,10 +19,7 @@ public class TicketController {
     @Autowired
     private StudentRepo stdRepo;
 
-    @GetMapping
-    public List<Ticket> fetchAllTickets(){
-        return tickRepo.findAll();
-    }
+
     @GetMapping("/{id}")
     public ResponseEntity getTicketById(@PathVariable String id){
         return ResponseEntity.ok(tickRepo.findById(id).orElse(null));
@@ -50,6 +47,7 @@ public class TicketController {
 
         return new ResponseEntity<>(createdTicket, HttpStatus.CREATED);
     }
+
 
 
 }
