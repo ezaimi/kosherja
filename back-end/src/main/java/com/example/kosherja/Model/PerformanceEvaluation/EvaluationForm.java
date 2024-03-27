@@ -17,6 +17,6 @@ public class EvaluationForm {
 
     private String description;
 
-    private List<QuestionType> questions;
+    private List<Question> questions;
 
 }
