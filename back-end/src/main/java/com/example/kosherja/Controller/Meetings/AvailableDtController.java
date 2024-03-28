@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/availableDt")
@@ -25,4 +26,9 @@ public class AvailableDtController {
         return new ResponseEntity<>(request, HttpStatus.CREATED);
     }
 //    Krijo nje metod qe merr vetem te gjith dates ne nje list na nje manager i caktuar--
+
+    @GetMapping("/getAllDt")
+    public ResponseEntity<List<AvailabilityRequest>> getAllDates(){
+        return new ResponseEntity<>(availableDtService.findAllAvailableDates(),HttpStatus.OK);
+    }
 }

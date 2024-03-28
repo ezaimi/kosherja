@@ -46,7 +46,9 @@ public class AvailableDtService {
             return availableDtRepo.save(request);}
 
 
-
+    public List<AvailabilityRequest> findAllAvailableDates(){
+        return (List<AvailabilityRequest>) availableDtRepo.findAll();
+    }
 
 
 }
