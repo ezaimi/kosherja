@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface TicketRepo extends MongoRepository<Ticket,String> {
     List<Ticket> findAllByStudentId(String id);
+    List<Ticket> findAll(); // This fetches all tickets
+
 }

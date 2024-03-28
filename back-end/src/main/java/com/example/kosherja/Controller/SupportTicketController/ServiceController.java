@@ -3,6 +3,7 @@ package com.example.kosherja.Controller.SupportTicketController;
 
 import com.example.kosherja.Model.SupportTicket.Service1;
 import com.example.kosherja.Model.SupportTicket.Ticket;
+import com.example.kosherja.Repo.Meetings.AvailableDtRepo;
 import com.example.kosherja.Repo.SupportTicketRepo.Service1Repo;
 import com.example.kosherja.Repo.SupportTicketRepo.TicketRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.List;
 public class ServiceController {
 
 //    krijojm nje post per te
+
 
     @Autowired
     Service1Repo service1Repo;
@@ -38,5 +40,6 @@ public class ServiceController {
         Service1 updatedService = service1Repo.save(service);
         return ResponseEntity.ok(updatedService);
     }
+
 
 }
