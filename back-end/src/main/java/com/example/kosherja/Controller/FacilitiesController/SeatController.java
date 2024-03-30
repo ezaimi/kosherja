@@ -8,24 +8,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @RestController
-@RequestMapping("/cinema/seats")
+@RequestMapping("/cinema/seats/{stdId}")
 public class SeatController {
     @Autowired
     private SeatService seatService;
 
-    @PostMapping("/show")
-    public ResponseEntity<Seat> showAllSeats(@RequestParam int numRows, @RequestParam int numColumns){
 
-        return new ResponseEntity<>( seatService.generateSeats(numRows,numColumns),HttpStatus.CREATED);
-    }
-    @PostMapping("/reservation")
-    public ResponseEntity<String> reserveSeats(@RequestBody Reservation reservation) {
-        boolean success = seatService.reserveSeats(reservation);
-        if (success) {
-            return new ResponseEntity<>("Seats reserved successfully.", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Failed to reserve seats. Some seats might already be reserved.", HttpStatus.BAD_REQUEST);
-        }
-    }
+//    @PostMapping("/selectSeat")
+//    public ResponseEntity<Seat> showAllSeats(@PathVariable String stdId,@PathVariable String movieId,@RequestBody Seat seat){
+//
+//        return new ResponseEntity<>( seatService.generateSeats(stdId,seat,movieId),HttpStatus.CREATED);
+//    }
+
+//    @PostMapping("/reservation/{seatId}")
+//    public ResponseEntity<Reservation> reserveSeats(@RequestBody Reservation reservation) {
+//        Reservation success = seatService.reserveSeats(reservation);
+//        return  new ResponseEntity<>(success,HttpStatus.CREATED);
+//    }
 }

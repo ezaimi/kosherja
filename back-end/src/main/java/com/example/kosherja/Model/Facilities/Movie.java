@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalTime;
+import java.util.List;
+
 @Document(collection = "movie")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,6 +18,16 @@ public class Movie {
     private Genre genre;
     private String movieUrl;
     private String movieName;
+
+    private List<String> showtimes;
+
+    public List<String> getShowtimes() {
+        return showtimes;
+    }
+
+    public void setShowtimes(List<String> showtimes) {
+        this.showtimes = showtimes;
+    }
 
     public String getMovieName() {
         return movieName;

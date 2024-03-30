@@ -8,12 +8,31 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "seat")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Seat {
+public class Seat{
     @Id
     private String id;
     private int row;
     private int column;
     private SeatStatus status;
+    private String stdId;
+
+    private String movieId;
+
+    public String getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
+    }
+
+    public String getStdId() {
+        return stdId;
+    }
+
+    public void setStdId(String stdId) {
+        this.stdId = stdId;
+    }
 
     public String getId() {
         return id;

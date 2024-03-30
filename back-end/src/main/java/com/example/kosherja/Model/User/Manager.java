@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Data
@@ -20,6 +21,26 @@ public class Manager {
     private String surname;
     private String email;
     private String phone;
+
+//    Movieinfo
+    private String selectedMovieId;
+    private String selectedShowTime;
+
+    public String getSelectedMovieId() {
+        return selectedMovieId;
+    }
+
+    public void setSelectedMovieId(String selectedMovieId) {
+        this.selectedMovieId = selectedMovieId;
+    }
+
+    public String getSelectedShowTime() {
+        return selectedShowTime;
+    }
+
+    public void setSelectedShowTime(String selectedShowTime) {
+        this.selectedShowTime = selectedShowTime;
+    }
 
     public String getId() {
         return id;

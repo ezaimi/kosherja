@@ -1,12 +1,13 @@
 package com.example.kosherja.Service.Cinema;
 
-import com.example.kosherja.Model.Facilities.Reservation;
-import com.example.kosherja.Model.Facilities.Seat;
-import com.example.kosherja.Model.Facilities.SeatStatus;
+import com.example.kosherja.Model.Facilities.*;
+import com.example.kosherja.Repo.FacilitiesRepo.MovieRepo;
+import com.example.kosherja.Repo.FacilitiesRepo.ReservationRepo;
 import com.example.kosherja.Repo.FacilitiesRepo.SeatRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,42 +15,46 @@ import java.util.List;
 public class SeatService {
     @Autowired
     SeatRepo seatRepo;
+    @Autowired
+    ReservationRepo reservationRepo;
+    @Autowired
+    MovieRepo movieRepo;
+
+
+
     public List<Seat> getAllSeats(){
         return seatRepo.findAll();
     }
-    public Seat generateSeats(int numRows, int numColumns) {
-        List<Seat> seats = new ArrayList<>();
-        for (int row = 1; row <= numRows; row++) {
-            for (int column = 1; column <= numColumns; column++) {
-                Seat seat = new Seat();
-                seat.setRow(row);
-                seat.setColumn(column);
-                seat.setStatus(SeatStatus.AVAILABLE); // Assuming all seats are initially available
-                seats.add(seat);
-            }
-        }
-       return (Seat) seatRepo.saveAll(seats);
+    public Seat generateSeats(String id,Seat seat,String movieId) {
+        Seat seat1=new Seat();
+        seat1.setStdId(id);
+        seat1.setColumn(seat.getColumn());
+        seat1.setRow(seat.getRow());
+        seat1.setStatus(SeatStatus.AVAILABLE);
+        seat1.setMovieId(movieId);
+       return seatRepo.save(seat1);
     }
 
-    public boolean reserveSeats(Reservation reservation) {
-        List<Seat> seats = reservation.getSeats();
+//    public Reservation reserveSeats(Reservation reservation) {
+//      Reservation newReservation=new Reservation();
+//        List<String>seatIdList=reservation.getSeatIdList();
+//        List<Seat>listseat=new ArrayList<>();
+//        for(String seatId:seatIdList){
+//            Seat seat=seatRepo.findById(seatId).orElse(null);
+//            seat.setStatus(SeatStatus.RESERVED);
+//            seatRepo.save(seat);
+//            listseat.add(seat);
+//
+//        }
+//        Movie movie=movieRepo.findMovieNameById(movieId).orElse(null);
+//        newReservation.setMovieNamee(movie.getMovieName());
+//        newReservation.setMovieId(movieId);
+//        newReservation.setSeat(listseat);
+//        newReservation.setSeatIdList(seatIdList);
+//        newReservation.setDateTime(reservation.getDateTime());
+//
+//        return  reservationRepo.save(newReservation);
+//
+//    }
 
-        // Check if all seats are available
-        for (Seat seat : seats) {
-            Seat retrievedSeat = seatRepo.findById(seat.getId()).orElse(null);
-            if (retrievedSeat == null || retrievedSeat.getStatus() != SeatStatus.AVAILABLE) {
-                // Seat is not available for reservation
-                return false;
-            }
-        }
-
-        // Update seat statuses and save reservation details
-        for (Seat seat : seats) {
-            seat.setStatus(SeatStatus.RESERVED);
-            seatRepo.save(seat);
-        }
-
-        // Return true if seats are successfully reserved
-        return true;
-    }
 }
