@@ -1,6 +1,7 @@
 package com.example.kosherja.Controller.UserController;
 
 
+import com.example.kosherja.Model.User.Manager;
 import com.example.kosherja.Model.User.Student;
 import com.example.kosherja.Model.SupportTicket.Ticket;
 import com.example.kosherja.Repo.SupportTicketRepo.TicketRepo;
@@ -48,12 +49,15 @@ public class StudentController {
 
     //create a new Student by selecting the manager, contract and room
     @PostMapping("/createStudent/{managerId}/{roomId}/{contractId}")
-    public ResponseEntity<String> createStudentPlus(@PathVariable("managerId") String managerId, @RequestBody Student student, @PathVariable("roomId") String roomId, @PathVariable("contractId") String contractId) {
-        try {
-            studentService.createStudent(managerId, student,roomId,contractId);
-            return ResponseEntity.ok("Student registered successfully.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Registration of Student failed.");
+    public ResponseEntity<?> createStudentPlus(@PathVariable("managerId") String managerId, @RequestBody Student student, @PathVariable("roomId") String roomId, @PathVariable("contractId") String contractId) {
+
+        if (studentService.existsByUsernameOrEmail(student.getUsername(), student.getEmail())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Student with the same username or email already exists");
+        } else {
+
+            Student studentCreated = studentService.createStudent(managerId, student,roomId,contractId);
+
+            return new ResponseEntity<>(studentCreated, HttpStatus.CREATED);
         }
     }
 

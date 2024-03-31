@@ -1,5 +1,6 @@
 package com.example.kosherja.Model.User;
 
+import com.example.kosherja.Model.UserDetails.Documents;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -37,7 +38,7 @@ public class Student {
 
 
 
-    private List<Document> documentList;
+    private List<Documents> documentList;
 
     private LocalDate lastPaymentDate;
     private LocalDate nextPaymentDate;
@@ -53,7 +54,7 @@ public class Student {
                    @JsonProperty("roomId")String roomId,
                    @JsonProperty("contractId")String contractId,
                    @JsonProperty("managerId")String managerId,
-                   @JsonProperty("documentList")List<Document> documentList)
+                   @JsonProperty("documentList")List<Documents> documentList)
 //                   @JsonProperty("lastPaymentDate")LocalDate lastPaymentDate,
 //                   @JsonProperty("nextPaymentDate")LocalDate nextPaymentDate)
 
