@@ -84,6 +84,31 @@ public class StudentService {
 
 
 
+    //method to edit a student
+    public Student editStudent(String studentId, Student editedStudent) {
+        // Find the student by ID
+        Student existingStudent = studentRepo.findById(studentId).orElse(null);
+        if (existingStudent == null) {
+            return null; // Student not found
+        }
+
+        // Update the attributes of the existing student with the edited student's attributes
+        existingStudent.setUsername(editedStudent.getUsername());
+        existingStudent.setPassword(editedStudent.getPassword());
+        existingStudent.setName(editedStudent.getName());
+        existingStudent.setSurname(editedStudent.getSurname());
+        existingStudent.setEmail(editedStudent.getEmail());
+        existingStudent.setPhone(editedStudent.getPhone());
+        existingStudent.setRoomId(editedStudent.getRoomId());
+        existingStudent.setContractId(editedStudent.getContractId());
+        existingStudent.setManagerId(editedStudent.getManagerId());
+        existingStudent.setDocumentList(editedStudent.getDocumentList());
+        // Update other attributes as needed
+
+        // Save the updated student
+        return studentRepo.save(existingStudent);
+    }
+
 
 }
 

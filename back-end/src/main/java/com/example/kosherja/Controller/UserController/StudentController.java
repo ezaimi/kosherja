@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/students")
@@ -66,6 +67,25 @@ public class StudentController {
         return ResponseEntity.ok(stdRepo.findById(id).orElse(null));
     }
 
+
+    //a method to update student info
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<?> editStudent(@PathVariable("id") String id, @RequestBody Student editedStudent) {
+
+        Optional<Student> existingStudentOptional = stdRepo.findById(id);
+        if (existingStudentOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Call the service method to edit the student
+        Student existingStudent = existingStudentOptional.get();
+        Student updatedStudent = studentService.editStudent(existingStudent.getId(), editedStudent);
+        if (updatedStudent == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to edit student.");
+        }
+
+        return ResponseEntity.ok(updatedStudent);
+    }
 
     @GetMapping("ticketsOfStd/{studentId}")
     public ResponseEntity<List<Ticket>> getTicketByStdId(@PathVariable("studentId") String studentId){
