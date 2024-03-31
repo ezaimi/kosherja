@@ -6,7 +6,9 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.kosherja.Model.RentPayment.Payment;
 
+import java.util.List;
 import java.math.BigDecimal;
 
 @RestController
@@ -16,14 +18,22 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @PostMapping("/makePayment/{studentId}/{numberOfMonths}")
-    public ResponseEntity<String> makePayment(@PathVariable String studentId, @PathVariable int numberOfMonths) {
+    @PostMapping("/makePayment/{studentId}/{numberOfMonthsPaid}")
+    public ResponseEntity<String> makePayment(@PathVariable String studentId, @PathVariable int numberOfMonthsPaid) {
         try {
-            paymentService.makePayment(studentId, numberOfMonths);
+            paymentService.makePayment(studentId, numberOfMonthsPaid);
             return ResponseEntity.ok("Payment successful.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Payment failed.");
         }
+    }
+
+    @GetMapping("/student-bills/{studentId}")
+    public ResponseEntity<List<Payment>> getStudentBills(@PathVariable("studentId") String studentId){
+
+        List<Payment> payments = paymentService.getAllPayments(studentId);
+
+        return new ResponseEntity<>(payments, HttpStatus.OK);
     }
 
 

@@ -3,14 +3,13 @@ package com.example.kosherja.Service.UserService;
 import com.example.kosherja.Model.Facilities.Building;
 import com.example.kosherja.Model.Facilities.Room;
 import com.example.kosherja.Model.User.Student;
+import com.example.kosherja.Model.UserDetails.Contract;
 import com.example.kosherja.Repo.FacilitiesRepo.BuildingRepo;
 import com.example.kosherja.Repo.FacilitiesRepo.RoomRepo;
+import com.example.kosherja.Repo.UserDetailsRepo.ContractRepo;
 import com.example.kosherja.Repo.UserRepo.StudentRepo;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Service
 public class StudentService {
@@ -24,6 +23,9 @@ public class StudentService {
 
     @Autowired
     private RoomRepo roomRepo;
+
+    @Autowired
+    private ContractRepo contractRepo;
 
     public boolean existsByUsernameOrEmail(String username, String email) {
         return studentRepo.existsByUsernameOrEmail(username, email);
@@ -108,6 +110,7 @@ public class StudentService {
         // Save the updated student
         return studentRepo.save(existingStudent);
     }
+
 
 
 }
