@@ -17,4 +17,8 @@ public class Room {
     @Setter private boolean availability;
     @Setter private double price;
 
+    private String buildingId;
+
+
+
 }

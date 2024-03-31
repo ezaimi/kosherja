@@ -17,5 +17,7 @@ public class Building {
     private String name;
     private double occupancyStatus;
 
+    private int noOfRooms;
+
 
 }

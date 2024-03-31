@@ -10,9 +10,13 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
+
 @Data
 @Document(collection = "student")
-public class Student{
+public class Student {
 
 
     @Id
@@ -24,11 +28,19 @@ public class Student{
     private String email;
     private String phone;
 
+    private String buildingId;
 
     private String roomId;
     private String contractId;
 
     private String managerId;
+
+
+
+    private List<Document> documentList;
+
+    private LocalDate lastPaymentDate;
+    private LocalDate nextPaymentDate;
 
     @JsonCreator
     public Student(@JsonProperty("username") String username,
@@ -37,9 +49,15 @@ public class Student{
                    @JsonProperty("surname") String surname,
                    @JsonProperty("email") String email,
                    @JsonProperty("phone") String phone,
+                   @JsonProperty("buildingId") String buildingId,
                    @JsonProperty("roomId")String roomId,
                    @JsonProperty("contractId")String contractId,
-                   @JsonProperty("managerId")String managerId)
+                   @JsonProperty("managerId")String managerId,
+                   @JsonProperty("documentList")List<Document> documentList)
+//                   @JsonProperty("lastPaymentDate")LocalDate lastPaymentDate,
+//                   @JsonProperty("nextPaymentDate")LocalDate nextPaymentDate)
+
+
     {
         this.username = username;
         this.password = password;
@@ -47,9 +65,13 @@ public class Student{
         this.surname = surname;
         this.email = email;
         this.phone = phone;
+        this.buildingId = buildingId;
         this.roomId=roomId;
         this.contractId=contractId;
         this.managerId = managerId;
+        this.documentList = documentList;
+//        this.lastPaymentDate = lastPaymentDate;
+//        this.nextPaymentDate = nextPaymentDate;
     }
 
 }
