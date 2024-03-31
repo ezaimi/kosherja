@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -17,22 +19,36 @@ public class AvailableDtService {
     private final Lock lock = new ReentrantLock();
 
 
-//    public AvailabilityRequest setAvailibility(LocalDate date){
-//        AvailabilityRequest request = new AvailabilityRequest();
-//        request.setDate(date);
-//        request.setAvailable(true); // Set availability to true explicitly
-//        return availableDtRepo.save(request);
-//    }
+    public AvailabilityRequest setAvailibility1(LocalDate date,String id){
 
-    public AvailabilityRequest setAvailibility(LocalDate date) {
-        lock.lock(); // Acquire the lock
-        try {
+        AvailabilityRequest request = new AvailabilityRequest();
+        request.setDate(date);
+        request.setId(id);
+        request.setAvailable(false); // Set availability to true explicitly
+        return availableDtRepo.save(request);}
+
+
+    public AvailabilityRequest setAvailibility3(LocalDate date,String id){
+
             AvailabilityRequest request = new AvailabilityRequest();
             request.setDate(date);
+            request.setId(id);
             request.setAvailable(true); // Set availability to true explicitly
-            return availableDtRepo.save(request);
-        } finally {
-            lock.unlock(); // Release the lock in the finally block to ensure it's always released
-        }
+            return availableDtRepo.save(request);}
+
+
+    public AvailabilityRequest setAvailibility2(LocalDate date,String managerId){
+
+         AvailabilityRequest request = new AvailabilityRequest();
+            request.setDate(date);
+            request.setManagerId(managerId);
+            request.setAvailable(true); // Set availability to true explicitly
+            return availableDtRepo.save(request);}
+
+
+    public List<AvailabilityRequest> findAllAvailableDates(){
+        return (List<AvailabilityRequest>) availableDtRepo.findAll();
     }
+
+
 }
