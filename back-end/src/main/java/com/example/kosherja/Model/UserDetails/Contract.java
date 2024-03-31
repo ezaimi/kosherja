@@ -16,4 +16,6 @@ public class Contract {
     private ObjectId id;
     @Setter private String terms;
 
+   @Setter private int duration;
+
 }
