@@ -18,8 +18,9 @@ public class Payment {
     private BigDecimal amount;
     private LocalDate paymentDate;
     //number of paid months
-    private int numberOfMonths;
-    private int remainingNoOfMonths;
+    private int numberOfMonthsPaid;
+    private int numberOfMonthsPaidTotal;
+    private int remainingNoOfMonthsToPay;
 
 
 }

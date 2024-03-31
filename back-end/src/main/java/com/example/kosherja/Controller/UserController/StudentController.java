@@ -1,9 +1,11 @@
 package com.example.kosherja.Controller.UserController;
 
 
+import com.example.kosherja.Model.Facilities.Room;
 import com.example.kosherja.Model.User.Manager;
 import com.example.kosherja.Model.User.Student;
 import com.example.kosherja.Model.SupportTicket.Ticket;
+import com.example.kosherja.Model.UserDetails.Contract;
 import com.example.kosherja.Repo.SupportTicketRepo.TicketRepo;
 import com.example.kosherja.Repo.UserRepo.StudentRepo;
 import com.example.kosherja.Service.UserService.StudentService;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/students")
@@ -67,6 +70,25 @@ public class StudentController {
     }
 
 
+    //a method to update student info
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<?> editStudent(@PathVariable("id") String id, @RequestBody Student editedStudent) {
+
+        Optional<Student> existingStudentOptional = stdRepo.findById(id);
+        if (existingStudentOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Call the service method to edit the student
+        Student existingStudent = existingStudentOptional.get();
+        Student updatedStudent = studentService.editStudent(existingStudent.getId(), editedStudent);
+        if (updatedStudent == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to edit student.");
+        }
+
+        return ResponseEntity.ok(updatedStudent);
+    }
+
     @GetMapping("ticketsOfStd/{studentId}")
     public ResponseEntity<List<Ticket>> getTicketByStdId(@PathVariable("studentId") String studentId){
         List<Ticket> tickets = tickRepo.findAllByStudentId(studentId);
@@ -77,4 +99,7 @@ public class StudentController {
             return ResponseEntity.ok(tickets);
         }
     }
+
+
+
 }
