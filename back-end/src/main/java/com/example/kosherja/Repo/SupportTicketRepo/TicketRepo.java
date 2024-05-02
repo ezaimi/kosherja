@@ -10,5 +10,7 @@ import java.util.List;
 public interface TicketRepo extends MongoRepository<Ticket,String> {
     List<Ticket> findAllByStudentId(String id);
     List<Ticket> findAll(); // This fetches all tickets
-
+    List<Ticket>findTicketBystudentId(String id);
+    void deleteByticketId(String id);
+//    Ticket save();
 }
