@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class PaymentService {
@@ -30,8 +31,7 @@ public class PaymentService {
     @Autowired
     private ContractRepo contractRepo;
 
-    public void makePayment(String studentId, int numberOfMonths) {
-        // Retrieve student and update payment information
+    public void makePayment(String studentId, int numberOfMonthsPaid) {
         Student student = studentRepository.findById(studentId).orElse(null);
         if (student == null) {
             return;
@@ -42,50 +42,63 @@ public class PaymentService {
             return;
         }
 
-        // Retrieve contract information
         Contract contract = contractRepo.findById(student.getContractId()).orElse(null);
         if (contract == null) {
             return;
         }
 
         if (student.getLastPaymentDate() == null || student.getNextPaymentDate() == null) {
-            // If not present, set default values or calculate them based on some logic
+            // if not present, set default values or calculate them based on some logic
             student.setLastPaymentDate(LocalDate.now());
             student.setNextPaymentDate(LocalDate.now());
+
         }
 
-        Payment lastPayment = paymentRepository.findTopByStudentIdOrderByPaymentDateDesc(studentId);
-        int lastNumberOfMonths = 0;
-        if (lastPayment != null) {
-            lastNumberOfMonths = lastPayment.getNumberOfMonths();
-        }
+        List<Payment> payments = paymentRepository.findByStudentId(studentId);
 
-        // Calculate the payment amount based on the contract duration
+        // calc the total no of months paid by the student
+        int totalMonthsPaid = payments.stream().mapToInt(Payment::getNumberOfMonthsPaid).sum();
+
+
+        //calc the payment amount based on the contract duration
         int contractDuration = contract.getDuration();
         BigDecimal roomPrice = BigDecimal.valueOf(room.getPrice());
-        BigDecimal paymentAmount = roomPrice.multiply(BigDecimal.valueOf(numberOfMonths));
+        BigDecimal amountPaid = roomPrice.multiply(BigDecimal.valueOf(numberOfMonthsPaid));
 
-        // Update last payment date and next payment date
+        //calc the remaining no of months to pay
+        int remainingMonthsToPay = contractDuration - (totalMonthsPaid + numberOfMonthsPaid);
+
+//
+//        // Update last payment date and next payment date
         student.setLastPaymentDate(LocalDate.now());
-        int remainingMonths = contract.getDuration() - numberOfMonths;
+//        int remainingMonths = contractDuration - (numberOfMonthsPaid + lastNumberOfMonths);
         student.setNextPaymentDate(student.getNextPaymentDate().plusMonths(1));
-
-
-        // Save the updated student information
+//        student.setLastPaymentDate(LocalDate.now());
+//
+//        // Save the updated student information
         studentRepository.save(student);
-
-        // Record the payment in the payment history
+//
+//        // Record the payment in the payment history
         Payment payment = new Payment();
         payment.setStudentId(studentId);
-        payment.setAmount(paymentAmount);
+        payment.setAmount(amountPaid);
         payment.setPaymentDate(LocalDate.now());
-        payment.setNumberOfMonths(numberOfMonths + lastNumberOfMonths);
-        payment.setRemainingNoOfMonths(remainingMonths);
-        // Save the payment entity to the database
+        payment.setNumberOfMonthsPaid(numberOfMonthsPaid);
+        payment.setNumberOfMonthsPaidTotal(totalMonthsPaid + numberOfMonthsPaid);
+        payment.setRemainingNoOfMonthsToPay(remainingMonthsToPay);
+//        // Save the payment entity to the database
         paymentRepository.save(payment);
     }
 
 
+    //method in student dashboard to show all the payments a student has made (bills)
+    public List<Payment> getAllPayments(String studentId) {
+
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found with ID: " + studentId));
 
 
+        return paymentRepository.findByStudentId(studentId);
+
+    }
 }

@@ -10,7 +10,5 @@ import java.util.Optional;
 @Repository
 public interface RoomRepo extends MongoRepository<Room,String> {
 
-    default Optional<Object> findByIdAndBuildingId(String roomId, String buildingId) {
-        return Optional.empty();
-    }
+    List<Room> findByBuildingId(String id);
 }

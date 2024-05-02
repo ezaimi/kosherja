@@ -67,7 +67,7 @@ public class FinanceService {
 
         // Calculate total number of months from payments
         int numberOfMonthsPaid = studentPayments.stream()
-                .mapToInt(Payment::getNumberOfMonths)
+                .mapToInt(Payment::getNumberOfMonthsPaid)
                 .sum();
 
         // checking if the student has made any payment yet (if it is not the first payment)

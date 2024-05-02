@@ -38,6 +38,7 @@ public class Student {
 
 
     private List<Documents> documentList;
+<<<<<<< HEAD
 //    private List<Document> documentList;
     private LocalDate lastPaymentDate;
     private LocalDate nextPaymentDate;
@@ -73,6 +74,43 @@ public class Student {
 ////        this.lastPaymentDate = lastPaymentDate;
 ////        this.nextPaymentDate = nextPaymentDate;
 //    }
+=======
+
+    private LocalDate lastPaymentDate;
+    private LocalDate nextPaymentDate;
+
+    @JsonCreator
+    public Student(@JsonProperty("username") String username,
+                   @JsonProperty("password") String password,
+                   @JsonProperty("name") String name,
+                   @JsonProperty("surname") String surname,
+                   @JsonProperty("email") String email,
+                   @JsonProperty("phone") String phone,
+                   @JsonProperty("buildingId") String buildingId,
+                   @JsonProperty("roomId")String roomId,
+                   @JsonProperty("contractId")String contractId,
+                   @JsonProperty("managerId")String managerId,
+                   @JsonProperty("documentList")List<Documents> documentList)
+//                   @JsonProperty("lastPaymentDate")LocalDate lastPaymentDate,
+//                   @JsonProperty("nextPaymentDate")LocalDate nextPaymentDate)
+
+
+    {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.phone = phone;
+        this.buildingId = buildingId;
+        this.roomId=roomId;
+        this.contractId=contractId;
+        this.managerId = managerId;
+        this.documentList = documentList;
+//        this.lastPaymentDate = lastPaymentDate;
+//        this.nextPaymentDate = nextPaymentDate;
+    }
+>>>>>>> 7646982990341c54b0bc21121bfe4f0564baa2f7
 
     public String getId() {
         return id;
