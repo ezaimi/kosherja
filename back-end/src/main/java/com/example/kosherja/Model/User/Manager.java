@@ -21,6 +21,7 @@ public class Manager {
     private String surname;
     private String email;
     private String phone;
+    private String role;
 
 //    Movieinfo
     private String selectedMovieId;

@@ -10,4 +10,6 @@ public interface StudentRepo extends MongoRepository<Student,String> {
     long countByManagerId(String id);
 
     boolean existsByUsernameOrEmail(String username, String email);
+
+    Student findByUsername(String username);
 }
