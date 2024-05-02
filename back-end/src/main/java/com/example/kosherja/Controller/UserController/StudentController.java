@@ -51,6 +51,8 @@ public class StudentController {
     }
 
     //create a new Student by selecting the manager, contract and room
+
+
     @PostMapping("/createStudent/{managerId}/{roomId}/{contractId}")
     public ResponseEntity<?> createStudentPlus(@PathVariable("managerId") String managerId, @RequestBody Student student, @PathVariable("roomId") String roomId, @PathVariable("contractId") String contractId) {
 
@@ -64,42 +66,42 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity getStudentById(@PathVariable String id){
-        return ResponseEntity.ok(stdRepo.findById(id).orElse(null));
-    }
+            @GetMapping("/{id}")
+            public ResponseEntity getStudentById (@PathVariable String id){
+                return ResponseEntity.ok(stdRepo.findById(id).orElse(null));
+            }
 
 
-    //a method to update student info
-    @PutMapping("/edit/{id}")
-    public ResponseEntity<?> editStudent(@PathVariable("id") String id, @RequestBody Student editedStudent) {
+            //a method to update student info
+            @PutMapping("/edit/{id}")
+            public ResponseEntity<?> editStudent (@PathVariable("id") String id, @RequestBody Student editedStudent){
 
-        Optional<Student> existingStudentOptional = stdRepo.findById(id);
-        if (existingStudentOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
+                Optional<Student> existingStudentOptional = stdRepo.findById(id);
+                if (existingStudentOptional.isEmpty()) {
+                    return ResponseEntity.notFound().build();
+                }
+
+                // Call the service method to edit the student
+                Student existingStudent = existingStudentOptional.get();
+                Student updatedStudent = studentService.editStudent(existingStudent.getId(), editedStudent);
+                if (updatedStudent == null) {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to edit student.");
+                }
+
+                return ResponseEntity.ok(updatedStudent);
+            }
+
+            @GetMapping("ticketsOfStd/{studentId}")
+            public ResponseEntity<List<Ticket>> getTicketByStdId (@PathVariable("studentId") String studentId){
+                List<Ticket> tickets = tickRepo.findAllByStudentId(studentId);
+
+                if (tickets.isEmpty()) {
+                    return ResponseEntity.notFound().build();
+                } else {
+                    return ResponseEntity.ok(tickets);
+                }
+            }
+
+
+
         }
-
-        // Call the service method to edit the student
-        Student existingStudent = existingStudentOptional.get();
-        Student updatedStudent = studentService.editStudent(existingStudent.getId(), editedStudent);
-        if (updatedStudent == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to edit student.");
-        }
-
-        return ResponseEntity.ok(updatedStudent);
-    }
-
-    @GetMapping("ticketsOfStd/{studentId}")
-    public ResponseEntity<List<Ticket>> getTicketByStdId(@PathVariable("studentId") String studentId){
-        List<Ticket> tickets = tickRepo.findAllByStudentId(studentId);
-
-        if(tickets.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(tickets);
-        }
-    }
-
-
-
-}

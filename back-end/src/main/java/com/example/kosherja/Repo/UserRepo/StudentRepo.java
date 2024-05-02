@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 public interface StudentRepo extends MongoRepository<Student,String> {
     long countByManagerId(String id);
 
+    Student findByUsername(String username);
+
+
     boolean existsByUsernameOrEmail(String username, String email);
 
-    Student findByUsername(String username);
 }
