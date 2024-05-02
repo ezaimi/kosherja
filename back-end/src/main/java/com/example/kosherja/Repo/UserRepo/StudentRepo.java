@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StudentRepo extends MongoRepository<Student,String> {
     long countByManagerId(String id);
+    Student findByUsername(String username);
 }

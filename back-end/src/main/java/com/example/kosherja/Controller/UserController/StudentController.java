@@ -48,13 +48,15 @@ public class StudentController {
 
     //create a new Student by selecting the manager, contract and room
     @PostMapping("/createStudent/{managerId}/{roomId}/{contractId}")
-    public ResponseEntity<String> createStudentPlus(@PathVariable("managerId") String managerId, @RequestBody Student student, @PathVariable("roomId") String roomId, @PathVariable("contractId") String contractId) {
+    public ResponseEntity<String> createStudentPlus(@PathVariable String managerId,  @PathVariable String roomId, @PathVariable String contractId,@RequestBody Student student) {
         try {
             studentService.createStudent(managerId, student,roomId,contractId);
             return ResponseEntity.ok("Student registered successfully.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Registration of Student failed.");
         }
+
+
     }
 
     @GetMapping("/{id}")
@@ -73,4 +75,7 @@ public class StudentController {
             return ResponseEntity.ok(tickets);
         }
     }
+
+//    Chat box for std with service
+
 }
