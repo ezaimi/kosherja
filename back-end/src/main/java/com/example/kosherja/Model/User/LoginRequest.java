@@ -1,5 +1,6 @@
 package com.example.kosherja.Model.User;
 
+
 public class LoginRequest {
     private String username;
     private String password;

@@ -24,19 +24,19 @@ public class UserAuthService {
     public Object authenticateAdmin(String username, String password) {
         // Authenticate against admin table
         Admin admin = adminRepo.findByUsername(username);
-       if( admin != null && admin.getPassword().equals(password)){
-           return admin;
-       }
-       return  null;
+        if( admin != null && admin.getPassword().equals(password)){
+            return admin;
+        }
+        return  null;
     }
 
     public Object authenticateStudent(String username, String password) {
         // Authenticate against student table
         Student student = studentRepo.findByUsername(username);
-       if( student != null && student.getPassword().equals(password)){
-           return student;
-       }
-       return  null;
+        if( student != null && student.getPassword().equals(password)){
+            return student;
+        }
+        return  null;
 
     }
 

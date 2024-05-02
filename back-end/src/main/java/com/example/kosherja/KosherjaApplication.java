@@ -25,6 +25,7 @@ public class KosherjaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KosherjaApplication.class, args);
 	}
+
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
@@ -37,4 +38,5 @@ public class KosherjaApplication {
 			}
 		};
 	}
+
 }
