@@ -43,6 +43,8 @@ public class Student {
     private LocalDate lastPaymentDate;
     private LocalDate nextPaymentDate;
 
+    private String role;
+
     @JsonCreator
     public Student(@JsonProperty("username") String username,
                    @JsonProperty("password") String password,

@@ -15,6 +15,7 @@ public class Admin {
     private String surname;
     private String email;
     private String phone;
+    private String role;
 
     public String getId() {
         return id;
