@@ -4,12 +4,14 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@SpringBootApplication
+
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @ComponentScan(basePackages ={ "com.example.kosherja.Controller","com.example.kosherja.Model","com.example.kosherja.Repo","com.example.kosherja.Service"})
 
 public class KosherjaApplication {
@@ -21,6 +23,7 @@ public class KosherjaApplication {
 //			builder.modules(new JavaTimeModule());
 //		};
 //	}
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(KosherjaApplication.class, args);

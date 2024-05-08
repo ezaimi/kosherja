@@ -24,6 +24,7 @@ public class AuthController {
         // Try authenticating as student
         Object studentAuth = userAuthService.authenticateStudent(loginRequest.getUsername(), loginRequest.getPassword());
         if (studentAuth != null) {
+            System.out.println(studentAuth);
             return studentAuth;
         }
 
@@ -33,7 +34,11 @@ public class AuthController {
             return managerAuth;
         }
 
-        // If none of the above matches, return null
+        Object mainServ = userAuthService.authenticateMainServ(loginRequest.getUsername(), loginRequest.getPassword());
+        if (mainServ != null) {
+            return mainServ;
+        }
+//         If none of the above matches, return null
         return null;
     }
 

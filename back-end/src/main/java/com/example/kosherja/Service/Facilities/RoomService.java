@@ -7,6 +7,8 @@ import com.example.kosherja.Repo.UserRepo.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class RoomService {
 
@@ -24,6 +26,11 @@ public class RoomService {
 
 
         return roomRepo.findById(roomId).orElse(null);
+    }
+
+    public Room getRoomById(String roomId) {
+        Optional<Room> roomOptional = roomRepo.findById(roomId);
+        return roomOptional.orElse(null);
     }
 
 }

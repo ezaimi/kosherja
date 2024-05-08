@@ -1,19 +1,15 @@
 package com.example.kosherja.Model.User;
 
-
-import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalTime;
-import java.util.List;
-
-@Data
-@Document(collection = "manager")
-public class Manager {
+@Document(collection = "MainServise")
+@AllArgsConstructor
+@NoArgsConstructor
+public class MainUserServ {
     @Id
     private String id;
     private String username;
@@ -22,44 +18,6 @@ public class Manager {
     private String surname;
     private String email;
     private String phone;
-    private String role;
-    @OneToMany(mappedBy = "manager")
-    private List<Student> students;
-
-    // Other properties and methods
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    //    Movieinfo
-    private String selectedMovieId;
-    private String selectedShowTime;
-
-    public String getSelectedMovieId() {
-        return selectedMovieId;
-    }
-
-    public void setSelectedMovieId(String selectedMovieId) {
-        this.selectedMovieId = selectedMovieId;
-    }
-
-    public String getSelectedShowTime() {
-        return selectedShowTime;
-    }
-
-    public void setSelectedShowTime(String selectedShowTime) {
-        this.selectedShowTime = selectedShowTime;
-    }
 
     public String getId() {
         return id;
@@ -93,9 +51,6 @@ public class Manager {
         this.name = name;
     }
 
-    @Getter
-    private String buildingID;
-
     public String getSurname() {
         return surname;
     }
@@ -118,13 +73,5 @@ public class Manager {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getBuildingID() {
-        return buildingID;
-    }
-
-    public void setBuildingID(String buildingID) {
-        this.buildingID = buildingID;
     }
 }

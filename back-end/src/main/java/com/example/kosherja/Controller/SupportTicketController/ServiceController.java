@@ -51,7 +51,7 @@ public class ServiceController {
 
         if (update.containsKey("status")) {
             String newStatus = (String) update.get("status");
-            ticket.setStatus(TicketStatus.REJECTED); // This should probably use newStatus instead
+            ticket.setStatus("rejected"); // This should probably use newStatus instead
         }
 
         // Save the updated ticket

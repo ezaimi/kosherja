@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/students")
+@RequestMapping("/students")
 public class StudentController {
 
     @Autowired
@@ -32,13 +32,7 @@ public class StudentController {
     @GetMapping
     public List<Student> fetchAllStudents(){return stdRepo.findAll();}
 
-//    @PostMapping
-//    public ResponseEntity createStudent(@RequestBody Student student){
-//        return ResponseEntity.status(201).body(
-//                stdRepo.save(student)
-//        );
-//
-//    }
+
 
     //create new student
     @PostMapping("/create/{id}")
@@ -91,17 +85,28 @@ public class StudentController {
                 return ResponseEntity.ok(updatedStudent);
             }
 
-            @GetMapping("ticketsOfStd/{studentId}")
-            public ResponseEntity<List<Ticket>> getTicketByStdId (@PathVariable("studentId") String studentId){
-                List<Ticket> tickets = tickRepo.findAllByStudentId(studentId);
-
-                if (tickets.isEmpty()) {
-                    return ResponseEntity.notFound().build();
-                } else {
-                    return ResponseEntity.ok(tickets);
-                }
-            }
+//            @GetMapping("ticketsOfStd/{studentId}")
+//            public ResponseEntity<List<Ticket>> getTicketByStdId (@PathVariable("studentId") String studentId){
+//               Student std=stdRepo.findById(studentId).orElse(null);
+//
+//                List<Ticket> tickets = tickRepo.findAllByStudentId(studentId);
+//                std.setTicketlist(tickets);
+//                return  new ResponseEntity<>(std, HttpStatus.OK());
+//            }
 
 
+    @GetMapping("/{stdId}/ticketsOfStd")
+    public ResponseEntity<Student> getTicketByStdId(@PathVariable("stdId") String studentId) {
+        Student std = stdRepo.findById(studentId).orElse(null);
 
+        if (std == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        List<Ticket> tickets = tickRepo.findAllByStudentId(studentId);
+        std.setTicketlist(tickets);
+        return new ResponseEntity<>(std, HttpStatus.OK);
+    }
+
+
+}

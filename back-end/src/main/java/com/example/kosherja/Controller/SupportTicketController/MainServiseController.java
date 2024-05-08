@@ -2,9 +2,13 @@ package com.example.kosherja.Controller.SupportTicketController;
 
 import com.example.kosherja.Model.SupportTicket.Services;
 import com.example.kosherja.Model.SupportTicket.Ticket;
+//import com.example.kosherja.Model.User.MainUserServ;
+import com.example.kosherja.Model.User.TopSer;
 import com.example.kosherja.Repo.SupportTicketRepo.MainServiceTicketRepo;
 import com.example.kosherja.Repo.SupportTicketRepo.Service1Repo;
 import com.example.kosherja.Repo.SupportTicketRepo.TicketRepo;
+//import com.example.kosherja.Service.SupportTicket.MainService;
+import com.example.kosherja.Repo.SupportTicketRepo.TopSerRepo;
 import com.example.kosherja.Service.SupportTicket.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,10 +33,25 @@ public class MainServiseController{
     @Autowired
     MainService mainService;
 
+    @Autowired
+    TopSerRepo topSerRepo;
+
+
+//
+////    0.Create Main service
+    @PostMapping("/createMainService")
+    public ResponseEntity<TopSer> createMainService(@RequestBody TopSer model){
+       TopSer model1=  mainService.createMainService(model);
+        return new ResponseEntity<>(topSerRepo.save(model1), HttpStatus.OK);
+    }
+
 //    1.Fetch all tickets
     @GetMapping("/fetchTickets")
     public ResponseEntity<List<Ticket>> fetchAllTickets() {
-        System.out.println(tickRepo.findAll());
+
+
+
+
         return new ResponseEntity<>(tickRepo.findAll(), HttpStatus.OK);
     }
 //   2.Create different service levels info
@@ -72,11 +91,11 @@ public class MainServiseController{
         return new ResponseEntity<>(service, HttpStatus.OK);
     }
 
-//
+
 //    @PostMapping("/createService")
 //    public ResponseEntity<Service1> createService(@RequestBody Service1 service) {
 //        return new ResponseEntity<>(service1Repo.save(service), HttpStatus.CREATED);
 //    }
-//
+
 
 }

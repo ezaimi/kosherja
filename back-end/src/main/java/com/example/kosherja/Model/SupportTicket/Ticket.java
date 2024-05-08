@@ -1,10 +1,12 @@
 package com.example.kosherja.Model.SupportTicket;
 
+import com.example.kosherja.Model.User.Student;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -18,11 +20,23 @@ public class Ticket {
 
     @Id
     private String ticketId;
-    private TicketStatus status; // Changed to enum TicketStatus
+    private String status; // Changed to enum TicketStatus
     private String topic;
     private List<String> msg;
     private String studentId;
-    private Priority priority; // Changed to enum Priority
+    private String priority; // Changed to enum Priority
+    private  String stdName;
+
+    public String getStdName() {
+        return stdName;
+    }
+
+    public void setStdName(String stdName) {
+        this.stdName = stdName;
+    }
+
+
+
 
     // Default constructor setting default values
 //    public Ticket() {
@@ -41,11 +55,11 @@ public class Ticket {
         this.ticketId = ticketId;
     }
 
-    public TicketStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(TicketStatus status) {
+    public void setStatus(String  status) {
         this.status = status;
     }
 
@@ -73,11 +87,11 @@ public class Ticket {
         this.studentId = studentId;
     }
 
-    public Priority getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(Priority priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 

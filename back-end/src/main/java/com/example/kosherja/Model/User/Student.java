@@ -1,5 +1,8 @@
 package com.example.kosherja.Model.User;
 
+import com.example.kosherja.Model.Facilities.Room;
+import com.example.kosherja.Model.SupportTicket.Ticket;
+import com.example.kosherja.Model.UserDetails.Contract;
 import com.example.kosherja.Model.UserDetails.Documents;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
@@ -35,8 +39,52 @@ public class Student {
     private String contractId;
 
     private String managerId;
+    private String role;
+    @DBRef
+    private Ticket ticket;
+    @DBRef
+    private List<Ticket> ticketlist;
 
+    public void setTicketlist(List<Ticket> ticketlist) {
+        this.ticketlist = ticketlist;
+    }
 
+    public List<Ticket> getTicket() {
+        return ticketlist;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    @DBRef
+    private Room room;
+
+    public Room getRoomm() {
+        return room;
+    }
+
+    public void setRoomm(Room room) {
+        this.room = room;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
+    @DBRef
+    private Contract contract;
+
+    public Contract getContractt() {
+        return contract;
+    }
+
+    public void setContractt(Contract contract) {
+        this.contract = contract;
+    }
+
+    @DBRef
+    private Manager manager;
 
     private List<Documents> documentList;
 

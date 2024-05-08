@@ -4,6 +4,8 @@ package com.example.kosherja.Service.Authenticate;
 import com.example.kosherja.Model.User.Admin;
 import com.example.kosherja.Model.User.Manager;
 import com.example.kosherja.Model.User.Student;
+import com.example.kosherja.Model.User.TopSer;
+import com.example.kosherja.Repo.SupportTicketRepo.TopSerRepo;
 import com.example.kosherja.Repo.UserRepo.AdminRepo;
 import com.example.kosherja.Repo.UserRepo.ManagerRepo;
 import com.example.kosherja.Repo.UserRepo.StudentRepo;
@@ -15,6 +17,8 @@ public class UserAuthService {
     @Autowired
     private AdminRepo adminRepo;
 
+    @Autowired
+    private TopSerRepo topSerRepo;
     @Autowired
     private StudentRepo studentRepo;
 
@@ -45,6 +49,14 @@ public class UserAuthService {
         Manager manager = managerRepo.findByUsername(username);
         if( manager != null && manager.getPassword().equals(password)){
             return manager;
+        }
+        return null;
+    }
+    public Object authenticateMainServ(String username, String password) {
+        // Authenticate against manager table
+        TopSer topSer=topSerRepo.findByUsername(username);
+        if( topSer != null && topSer.getPassword().equals(password)){
+            return topSer;
         }
         return null;
     }

@@ -1,11 +1,14 @@
 package com.example.kosherja.Service.UserDetails;
 
+import com.example.kosherja.Model.Facilities.Room;
 import com.example.kosherja.Model.User.Student;
 import com.example.kosherja.Model.UserDetails.Contract;
 import com.example.kosherja.Repo.UserDetailsRepo.ContractRepo;
 import com.example.kosherja.Repo.UserRepo.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ContractService {
@@ -24,6 +27,15 @@ public class ContractService {
         String contractId = student.getContractId();
 
         return contractRepo.findById(contractId).orElse(null);
+    }
+
+    public Contract getContractById(String contractId) {
+        // Implement logic to retrieve contract from your data source
+        // For example, if you are using a repository:
+         Contract contract = contractRepo.findById(contractId).orElse(null);
+
+        // For demonstration purposes, let's assume a dummy contract is returned
+        return contract;
     }
 
 }

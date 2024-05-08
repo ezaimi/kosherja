@@ -11,4 +11,6 @@ public interface ManagerRepo extends MongoRepository<Manager, String> {
     boolean existsByUsernameOrEmail(String username, String email);
     Manager findByUsername(String username);
 
+
+
 }

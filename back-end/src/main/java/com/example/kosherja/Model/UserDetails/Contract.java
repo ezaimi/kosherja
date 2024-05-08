@@ -18,4 +18,11 @@ public class Contract {
 
    @Setter private int duration;
 
+    public String getTermss() {
+        return terms;
+    }
+
+    public void setTermss(String terms) {
+        this.terms = terms;
+    }
 }
