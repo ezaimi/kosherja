@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -58,8 +59,15 @@ public class MainServiseControllerTest {
         msg.add("A");
         msg.add("B");
         msg.add("C");
-        Ticket ticket1 = new Ticket("1",TicketStatus.PENDING,"Fantasy",msg,"student1", Priority.EMERGENT, LocalDateTime.now(),"OK");
-        Ticket ticket2 = new Ticket("2",TicketStatus.PENDING,"Idk",msg,"student2", Priority.NOTEMERGENT, LocalDateTime.now(),"OK");
+        String studentId = "123";
+        Ticket ticket1 = new Ticket();
+        ticket1.setTopic("Test Topic");
+        ticket1.setPriority("Priority.EMERGENT");
+        ticket1.setMsg(msg);
+        Ticket ticket2 = new Ticket();
+        ticket2.setTopic("Test 2 Topic");
+        ticket2.setPriority("Priority.NONEMERGENT");
+        ticket2.setMsg(msg);
         tickets.add(ticket1);
         tickets.add(ticket2);
 
@@ -100,8 +108,10 @@ public class MainServiseControllerTest {
         msg.add("A");
         msg.add("B");
         msg.add("C");
-        Ticket ticket = new Ticket("1",TicketStatus.PENDING,"Fantasy",msg,"student1", Priority.EMERGENT, LocalDateTime.now(),"OK");
-
+        Ticket ticket = new Ticket();
+        ticket.setTopic("Test Topic");
+        ticket.setPriority("Priority.EMERGENT");
+        ticket.setMsg(msg);
         when(service1Repo.findById("servId")).thenReturn(java.util.Optional.of(service));
         when(mainServiceTicketRepo.findAllByTicketId("tickId")).thenReturn(ticket);
 

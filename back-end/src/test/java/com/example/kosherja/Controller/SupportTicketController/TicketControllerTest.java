@@ -45,7 +45,7 @@ class TicketControllerTest {
         String studentId = "123";
         Ticket ticket = new Ticket();
         ticket.setTopic("Test Topic");
-        ticket.setPriority(Priority.EMERGENT);
+        ticket.setPriority("Priority.EMERGENT");
         ticket.setMsg(msg);
 
         when(ticketRepo.save(any(Ticket.class))).thenReturn(ticket);
